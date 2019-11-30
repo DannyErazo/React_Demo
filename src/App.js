@@ -9,7 +9,7 @@ class App extends Component {
     person: [
 
       { name: 'Daniel', age: '29' },
-      { name: 'Jessica', age: '31' },
+      { name: 'Jess', age: '31' },
       { name: 'Christin', age: '32' } // remember that dynamic data need to be wrapped in curly braces!! 
 
     ],
@@ -77,7 +77,7 @@ class App extends Component {
                   To get started, edit <code>src/App.js</code> and save to reload.
                     </p>
 
-                <button style={style}onClick={() => this.switchNameHandler('Max')}>Switch Button</button>
+                <button style={style}onClick={this.toggleNameHandler}>Switch Button</button>
 
 
                 <Person name={this.state.person[0].name} age={this.state.person[0].age}></Person>
