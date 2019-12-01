@@ -53,7 +53,7 @@ class App extends Component {
 
     const doesShow = this.state.showPerson; 
     this.setState({showPerson: !doesShow}); 
-    
+
 
 
   }
@@ -70,8 +70,29 @@ class App extends Component {
       width: '150px',
       margin: '30px',
       font: 'inherit',
+    }
+
+    let persons = null;
+
+    if (this.state.showPerson) {
+
+      persons = (
+
+      <div>
+        <Person name={this.state.person[0].name} age={this.state.person[0].age}></Person>
+
+        <Person name={this.state.person[1].name} age={this.state.person[1].age}
+
+          click={this.switchNameHandler.bind(this, 'Dan The Man')}
+          changed={this.nameChangeHandler} ></Person>
+
+        <Person name={this.state.person[2].name} age={this.state.person[2].age}
+          click={this.switchNameHandler.bind(this, 'Danny')}></Person>
+      </div>
 
 
+
+       );
 
 
     }
@@ -90,21 +111,7 @@ class App extends Component {
 
 
 
-       { this.state.showPerson ? 
-         <div>   
-          
-          <Person name={this.state.person[0].name} age={this.state.person[0].age}></Person>
-
-          <Person name={this.state.person[1].name} age={this.state.person[1].age}
-
-            click={this.switchNameHandler.bind(this, 'Dan The Man')}
-            changed={this.nameChangeHandler} ></Person>
-
-          <Person name={this.state.person[2].name} age={this.state.person[2].age}
-            click={this.switchNameHandler.bind(this, 'Danny')}></Person>
-        </div> : null
-        
-        }
+       {persons}
 
 
 
