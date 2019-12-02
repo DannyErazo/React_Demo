@@ -8,9 +8,9 @@ class App extends Component {
   state = {
     person: [
 
-      { name: 'Daniel', age: '29' },
-      { name: 'Jess', age: '31' },
-      { name: 'Christin', age: '32' } // remember that dynamic data need to be wrapped in curly braces!! 
+      { id: 'abc', name: 'Daniel', age: '29' },
+      { id: 'bcd', name: 'Jess', age: '31' },
+      { id: 'cde', name: 'Christin', age: '32' } // remember that dynamic data need to be wrapped in curly braces!! 
 
     ],
     otherState: 'this is just random words',
@@ -22,51 +22,67 @@ class App extends Component {
 
 
 
-  switchNameHandler = (newName) => { // 
+
+  nameChangeHandler = (event,id) => {
+
+    const personIndex = this.state.person.findIndex( p=> {  // personIndex equals data referencing an index in our person object that matches the id of hat same element. 
+      return p.id === id  
+
+    }
+      );
 
 
-    this.setState({
+    const person = {  // this person container hold data referencing a copy of our persons objects with the corresponding incoming index indicating or 'person'
 
-      person: [
-        { name: newName, age: '30' },
-        { name: 'jeffrey', age: '32' },
-        { name: 'Christin', age: '33' }
-      ]
-    })
+      ...this.state.person[personIndex]
+
+    }
 
 
-  }
-
-  nameChangeHandler = (event) => {
-
-    this.setState({
-
-      person: [
-        { name: 'Daniel', age: '30' },
-        { name: event.target.value, age: '32' },
-        { name: 'Christin', age: '33' }
-      ]
-    })
+    person.name = event.target.value ;
 
 
-  }
+    const persons = [...this.state.person];
 
-  toggleNameHandler = () => {
+    persons[personIndex] = person; 
 
-    const doesShow = this.state.showPerson; 
+
   
-    this.setState({showPerson: !doesShow, button_text : 'Hide'}); 
+
+ // so far i've created a property that references by handler method which is taking two pieces of information including 1 ) event 2 ) id  
+ // I've also create a handler call nameChangeHandler which will change the name for the component that matches the corresponding index. 
+ //  
+
+
+
+
+
+
+    this.setState({
+
+      person: persons
+    })
+
+
+  }
+
+  toggleNameHandler = () => { // this handler has displays our components or hides them depending on a binary state following a users click 
+
+    const doesShow = this.state.showPerson;  // here we've assigned our binary data to a container called 'doesShow'.
+  
+    this.setState({showPerson: !doesShow}); // now we update the showPerson portion of our state to equal the opposite of the current state.
 
 
 
   }
 
 
-  deleteNameHandler = (PersonIndex) => {
-    const person = this.state.person ;
+  deleteNameHandler = (PersonIndex) => { // I created a handler to listen for a click where it will then delete that component by referencing their index 
 
-    person.splice(PersonIndex,1); 
-    this.setState({person:person});
+    const person = [...this.state.person] ; // <=== updating state immutably w/ the spread operator
+
+    person.splice(PersonIndex,1); // here we spliced out 1 element from our array 
+    this.setState({person:person}); // we then update the state
 
 
   }
@@ -84,28 +100,28 @@ class App extends Component {
       font: 'inherit',
     }
 
-    let persons = null;
+    let persons = null; // our default value for is set to nothing or null. Meaning by default nothing will be displayed.
 
-    if (this.state.showPerson) {
+    if (this.state.showPerson) { // this conditional will display our Person components if the showPerson properties value is set to true.
 
       persons = (
-
       <div>
 
         {this.state.person.map((person,index) => {
           return <Person 
           
-          clicked = {() => this.deleteNameHandler(index)}
+          changed = {(event)=> this.nameChangeHandler(event, person.id)}
+          clicked = {() => this.deleteNameHandler(index)} // here we've created an anonymous function to return our 'deleteNameHandler' method with an index input 
           name = {person.name} 
-          age = {person.age}/>
+          age = {person.age}
+          key={person.id}
+
+          
+          />
         }
           )}
 
-
-    
       </div>
-
-
 
        );
     }
