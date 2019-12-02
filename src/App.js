@@ -14,8 +14,10 @@ class App extends Component {
 
     ],
     otherState: 'this is just random words',
-    showPerson: false
+    showPerson: false,
 
+    
+  
   };
 
 
@@ -52,12 +54,22 @@ class App extends Component {
   toggleNameHandler = () => {
 
     const doesShow = this.state.showPerson; 
-    this.setState({showPerson: !doesShow}); 
+  
+    this.setState({showPerson: !doesShow, button_text : 'Hide'}); 
 
 
 
   }
 
+
+  deleteNameHandler = (PersonIndex) => {
+    const person = this.state.person ;
+
+    person.splice(PersonIndex,1); 
+    this.setState({person:person});
+
+
+  }
 
 
 
@@ -79,23 +91,33 @@ class App extends Component {
       persons = (
 
       <div>
-        <Person name={this.state.person[0].name} age={this.state.person[0].age}></Person>
 
-        <Person name={this.state.person[1].name} age={this.state.person[1].age}
+        {this.state.person.map((person,index) => {
+          return <Person 
+          
+          clicked = {() => this.deleteNameHandler(index)}
+          name = {person.name} 
+          age = {person.age}/>
+        }
+          )}
 
-          click={this.switchNameHandler.bind(this, 'Dan The Man')}
-          changed={this.nameChangeHandler} ></Person>
 
-        <Person name={this.state.person[2].name} age={this.state.person[2].age}
-          click={this.switchNameHandler.bind(this, 'Danny')}></Person>
+    
       </div>
 
 
 
        );
-
-
     }
+
+
+      if (this.state.showPerson === true) {
+
+        this.state.button_text = 'Hide'
+      } else {
+        this.state.button_text = 'Reveal';
+      }
+
 
     return (
       <div className="App">
@@ -107,7 +129,7 @@ class App extends Component {
           To  get started, edit <code>src/App.js</code> and save to reload.
                     </p>
 
-        <button style={style} onClick={this.toggleNameHandler}>Switch Button</button>
+    <button style={style} onClick={this.toggleNameHandler}>{this.state.button_text}</button>
 
 
 
