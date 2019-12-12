@@ -5,6 +5,8 @@ import Person from './Person/Person';
 
 class App extends Component {
 
+// Original State 
+
   state = {
     person: [
 
@@ -22,6 +24,7 @@ class App extends Component {
 
 
 
+// List of Handlers 
 
   nameChangeHandler = (event,id) => {
 
@@ -29,7 +32,7 @@ class App extends Component {
       return p.id === id  
 
     }
-      );
+      ); 
 
 
     const person = {  // this person container hold data referencing a copy of our persons objects with the corresponding incoming index indicating or 'person'
@@ -93,12 +96,15 @@ class App extends Component {
     const style = {
       border: '1px solid blue',
       color: 'red',
-      backgroundColor: '#cee',
+      backgroundColor: 'green',
       padding: '8px',
       width: '150px',
       margin: '30px',
       font: 'inherit',
     }
+
+
+    // Conditional Content 
 
     let persons = null; // our default value for is set to nothing or null. Meaning by default nothing will be displayed.
 
@@ -130,9 +136,27 @@ class App extends Component {
       if (this.state.showPerson === true) {
 
         this.state.button_text = 'Hide'
+        style.backgroundColor='red';
+        style.color='green';
       } else {
         this.state.button_text = 'Reveal';
       }
+
+
+  // styling components dynamically with class names 
+
+const classes = []; // start value @ 0 
+
+if(this.state.person.length <=2){
+  classes.push('red');
+}
+if(this.state.person.length <=1){
+  classes.push('bold');
+}
+if(this.state.person.length <=0){
+  classes.push('max');
+}
+
 
 
     return (
@@ -144,9 +168,8 @@ class App extends Component {
         <p className="App-intro">
           To  get started, edit <code>src/App.js</code> and save to reload.
                     </p>
-
+<p className={classes.join(' ')}> This is really working</p>
     <button style={style} onClick={this.toggleNameHandler}>{this.state.button_text}</button>
-
 
 
        {persons}
