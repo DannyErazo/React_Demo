@@ -4,13 +4,13 @@ import './App.css';
 import styled from 'styled-components';
 import Person from './Person/Person';
 
-
+//styled component | Button 
 
 const StyledButton = styled.button`
 
 border: 1px solid blue;
 color: black;
-background-color: green;
+background-color: ${props=> props.alt ? 'red' : 'green'};
 padding: 8px;
 width: 150px;
 margin: 30px;
@@ -77,11 +77,6 @@ class App extends Component {
  // I've also create a handler call nameChangeHandler which will change the name for the component that matches the corresponding index. 
  //  
 
-
-
-
-
-
     this.setState({
 
       person: persons
@@ -117,11 +112,6 @@ class App extends Component {
   render( ) {
 
 
-   
-
-
-
-
     // Conditional Content 
 
     let persons = null; // our default value for is set to nothing or null. Meaning by default nothing will be displayed.
@@ -138,23 +128,12 @@ class App extends Component {
           clicked = {() => this.deleteNameHandler(index)} // here we've created an anonymous function to return our 'deleteNameHandler' method with an index input 
           name = {person.name} 
           age = {person.age}
-          key={person.id}
-
-          
-          />
-        }
-         )}
-
+          key={person.id}/>
+        })}
       </div>
 
-       );
-
-
-  
-
-  
-
-    }
+                 );
+}
 
     // conditional for toggle button
 
@@ -197,7 +176,7 @@ if(this.state.person.length <=0){
           To  get started, edit <code>src/App.js</code> and save to reload.
                     </p>
 <p className={classes.join(' ')}> This is really working</p>
-    <StyledButton onClick={this.toggleNameHandler}>{this.state.button_text}></StyledButton>
+    <StyledButton onClick={this.toggleNameHandler} alt = {this.state.showPerson}>{this.state.button_text}</StyledButton>
 
 
        {persons}
