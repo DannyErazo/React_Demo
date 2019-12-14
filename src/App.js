@@ -1,7 +1,28 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components';
 import Person from './Person/Person';
+
+
+
+const StyledButton = styled.button`
+
+border: 1px solid blue;
+color: black;
+background-color: green;
+padding: 8px;
+width: 150px;
+margin: 30px;
+font: inherit;
+cursor:help;
+&:hover {
+  background-color:purple;
+  color:black;
+}
+
+`;
+
 
 class App extends Component {
 
@@ -69,6 +90,7 @@ class App extends Component {
 
   }
 
+
   toggleNameHandler = () => { // this handler has displays our components or hides them depending on a binary state following a users click 
 
     const doesShow = this.state.showPerson;  // here we've assigned our binary data to a container called 'doesShow'.
@@ -85,23 +107,19 @@ class App extends Component {
     const person = [...this.state.person] ; // <=== updating state immutably w/ the spread operator
 
     person.splice(PersonIndex,1); // here we spliced out 1 element from our array 
-    this.setState({person:person}); // we then update the state
+    this.setState({person:person}); // we then update` the state
 
 
   }
 
+ 
+
+  render( ) {
 
 
-  render() {
-    const style = {
-      border: '1px solid blue',
-      color: 'red',
-      backgroundColor: 'green',
-      padding: '8px',
-      width: '150px',
-      margin: '30px',
-      font: 'inherit',
-    }
+   
+
+
 
 
     // Conditional Content 
@@ -125,20 +143,28 @@ class App extends Component {
           
           />
         }
-          )}
+         )}
 
       </div>
 
        );
+
+
+  
+
+  
+
     }
 
+    // conditional for toggle button
 
       if (this.state.showPerson === true) {
 
         this.state.button_text = 'Hide'
-        style.backgroundColor='red';
-        style.color='green';
-      } else {
+     
+      } 
+      
+      else {
         this.state.button_text = 'Reveal';
       }
 
@@ -160,6 +186,8 @@ if(this.state.person.length <=0){
 
 
     return (
+
+     
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -169,7 +197,7 @@ if(this.state.person.length <=0){
           To  get started, edit <code>src/App.js</code> and save to reload.
                     </p>
 <p className={classes.join(' ')}> This is really working</p>
-    <button style={style} onClick={this.toggleNameHandler}>{this.state.button_text}</button>
+    <StyledButton onClick={this.toggleNameHandler}>{this.state.button_text}></StyledButton>
 
 
        {persons}
@@ -178,7 +206,7 @@ if(this.state.person.length <=0){
 
 
       </div>
-
+     
     );
   }
 };

@@ -1,7 +1,7 @@
 .Person{
-    width:10%;
+    width:60%;
     margin: 50px auto;
-    border:1px solid #eee;
+    border:1px solid black;
     box-shadow: 0 2px 3px rgb(136, 124, 124);
     padding: 50px;
     text-emphasis: center;
@@ -9,7 +9,8 @@
     border-radius:10%;
     font-weight: 700;
     height: 200px;
-    display: block;
+   
+    background-color: purple;
 
 }
 
@@ -20,3 +21,10 @@
     border-radius: 20%;
 
 }
+
+
+
+
+
+
+
